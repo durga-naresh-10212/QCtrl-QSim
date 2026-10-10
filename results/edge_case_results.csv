@@ -1,0 +1,6 @@
+test_name,status
+reset_clears_outputs,PASS
+no_start_command,PASS
+zero_pulse_length,PASS
+zero_delay,PASS
+reset_during_pulse,PASS

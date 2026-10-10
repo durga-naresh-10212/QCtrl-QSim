@@ -1,0 +1,5 @@
+expected_cycles,measured_cycles,expected_duration_ns,measured_duration_ns,timing_error_ns,rtl_status,validation
+1,1,10.0,10.0,0.0,PASS,PASS
+2,2,20.0,20.0,0.0,PASS,PASS
+3,3,30.0,30.0,0.0,PASS,PASS
+5,5,50.0,50.0,0.0,PASS,PASS

@@ -1,0 +1,22 @@
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Generated simulation and experiment outputs
+# Keep CSV results and plots tracked for reproducibility.
+# Ignore only temporary files.
+*.log
+*.jou
+*.str
+
+# Vivado generated project data
+vivado_project/*.cache/
+vivado_project/*.hw/
+vivado_project/*.ip_user_files/
+vivado_project/*.sim/
+vivado_project/*.runs/
+vivado_project/*.gen/
