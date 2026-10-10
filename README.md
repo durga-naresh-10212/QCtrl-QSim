@@ -129,3 +129,50 @@ QCtrl-QSim is an exploratory engineering and simulation project.
 Its current results establish a working prototype and preliminary
 model-based observations; novelty and research contribution require
 further literature review and experimental validation.
+
+## Architecture
+
+The QCtrl-QSim framework connects RTL pulse-timing simulation with a
+Python-based quantum simulation workflow.
+
+```mermaid
+flowchart TD
+    A["Verilog Pulse Sequencer<br/>Vivado / XSim"] --> B["RTL Timing CSV"]
+    B --> C["Python Timing Bridge"]
+    C --> D["Pulse Duration to Modeled RY Angle"]
+    D --> E["Qiskit Aer Simulation"]
+    E --> F["Measurement Results CSV"]
+    F --> G["Error Analysis and Visualization"]
+```
+
+### Workflow
+
+1. **RTL generation:** The Verilog pulse sequencer generates control timing.
+2. **Timing verification:** Vivado/XSim testbenches verify pulse timing and edge cases.
+3. **Data transfer:** Simulated timing results are exported to CSV files.
+4. **Quantum simulation:** Python maps pulse duration to a modeled rotation angle and simulates measurements using Qiskit Aer.
+5. **Analysis:** Python scripts compare measurement probabilities with theoretical values and generate plots.
+
+> **Scope:** This is a file-based co-simulation prototype. The pulse-duration-to-angle mapping is a simplified model; it does not represent calibrated hardware control of a physical qubit.
+
+## Verified Results
+
+| Verification | Result |
+|---|---:|
+| RTL timing sweep | 12/12 tests passed |
+| RTL edge-case tests | 5/5 tests passed |
+| RTL sweep analysis | 12/12 cases validated |
+| Mean absolute probability error | Approximately 0.00340 |
+
+The probability error above is from a finite-shot simulation comparison against theoretical probabilities. It is not a measurement of physical quantum hardware performance.
+
+## Results and Visualizations
+
+### Resolution vs. Probability Error
+
+![Resolution vs probability error](results/figures/resolution_vs_probability_error.png)
+
+### Requested vs. Quantized Pulse Duration
+
+![Requested vs quantized pulse duration](results/figures/requested_vs_quantized_duration.png)
+
