@@ -135,6 +135,23 @@ The statistical evaluation examines five pulse durations using three fixed simul
 Across the tested configurations, the aggregate mean absolute probability error decreased by approximately 74.0% when the shot count increased from 500 to 8,000. Individual pulse configurations do not necessarily show a monotonic reduction.
 
 These results characterize finite-shot sampling in an ideal simulated circuit. They do not establish physical quantum-control accuracy.
+### Clock-Resolution Evaluation
+
+![Clock resolution vs. timing and probability error](results/figures/resolution_summary.png)
+
+The resolution sweep evaluates 50 modeled configurations across five hypothetical clock periods and ten requested pulse durations. Each requested duration is quantized to an integer number of clock cycles using nearest-cycle rounding, with a minimum of one cycle.
+
+| Clock period | Mean absolute timing error | Maximum absolute timing error | Mean absolute probability error |
+|---:|---:|---:|---:|
+| 2 ns | 0.60 ns | 1 ns | 0.01506 |
+| 5 ns | 1.10 ns | 2 ns | 0.02767 |
+| 10 ns | 2.20 ns | 4 ns | 0.05582 |
+| 15 ns | 3.40 ns | 6 ns | 0.08243 |
+| 20 ns | 6.00 ns | 10 ns | 0.14748 |
+
+Within this modeled sweep, the 2 ns clock period produced the lowest mean absolute probability error, while the 20 ns period produced the highest. The results illustrate the effect of timing quantization on the simplified duration-to-rotation model.
+
+These clock periods are hypothetical evaluation settings, not measurements from different physical FPGA configurations. The probability errors compare modeled values against ideal values and do not establish physical quantum-control accuracy.
 
 ## Tested Environment
 
