@@ -15,6 +15,7 @@ The project investigates how finite digital timing resolution affects a simplifi
 - Analyze timing results using Python.
 - Simulate modeled rotation-angle changes using Qiskit Aer.
 - Study timing quantization under different hypothetical clock periods.
+- Improve reproducibility through controlled simulator seeds.
 
 ## Architecture
 
@@ -94,11 +95,15 @@ qctrl-qsim/
 | RTL pulse-width sweep | 12/12 tests passed |
 | RTL edge-case tests | 5/5 tests passed |
 | RTL sweep analysis | 12/12 cases validated |
-| Mean absolute probability error | Approximately 0.00340 |
+| Quantum simulation shots per configuration | 4,000 |
+| Quantum simulation random seed | 42 |
+| Mean absolute probability error (seeded run) | 0.00554 |
 
-The timing sweep covers three delay settings and four pulse widths. Edge-case tests cover reset behavior, idle behavior, zero-length commands, and reset during an active pulse.
+The RTL timing sweep covers three delay settings and four pulse widths. Edge-case tests cover reset behavior, idle behavior, zero-length commands, and reset during an active pulse.
 
-The probability error is from a finite-shot simulation comparison against theoretical probabilities. It is not a measurement of physical quantum hardware performance.
+The quantum simulation uses Qiskit Aer with a fixed simulator seed to make measurement sampling reproducible under the same inputs and software environment. The reported probability error is calculated by comparing finite-shot simulated measurement probabilities against theoretical probabilities.
+
+These results are simulation-based. They do not represent measurements from physical quantum hardware or establish physical quantum-control accuracy.
 
 ## Results and Visualizations
 
@@ -144,6 +149,27 @@ Run Python scripts from the project root unless otherwise specified.
 
 RTL simulation requires a compatible Xilinx Vivado installation. Add the RTL module and the desired testbench as design and simulation sources, then run behavioral simulation.
 
+## Reproducibility
+
+The quantum experiment uses the following configuration:
+
+- Shots per configuration: 4,000
+- Simulator seed: `42`
+- Input: `results/timing_results.csv`
+- Output: `results/quantum_results.csv`
+
+Run the experiment and analysis from the project root:
+
+```bash
+python python/timing_bridge.py
+python python/quantum_experiment.py
+python python/analyze_results.py
+```
+
+The fixed seed makes the simulator's sampling reproducible when the inputs, software environment, and simulation settings remain unchanged.
+
+The error-analysis output depends on the generated measurement probabilities. If the seed, shot count, timing data, or simulation configuration changes, regenerate the analysis and update any reported metrics accordingly.
+
 ## Modeling Assumptions and Limitations
 
 - RTL verification is simulation-based, not physical FPGA testing.
@@ -159,7 +185,8 @@ RTL simulation requires a compatible Xilinx Vivado installation. Add the RTL mod
 - Automate RTL-to-Python data transfer.
 - Expand regression tests and parameter sweeps.
 - Compare quantization policies and timing-error metrics.
-- Add controlled noise models and reproducible repeated trials.
+- Evaluate multiple fixed seeds and shot counts to quantify sampling variability.
+- Add controlled noise models and compare ideal versus noisy simulations.
 - Validate model assumptions and compare against relevant literature.
 - Explore integration with more realistic quantum-control models.
 
