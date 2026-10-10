@@ -118,6 +118,23 @@ This experiment compares probability error across hypothetical digital clock per
 ![Requested vs. quantized pulse duration](results/figures/requested_vs_quantized_duration.png)
 
 This plot illustrates how requested pulse durations map to discrete timing intervals in the model.
+### Statistical Evaluation: Shot Count vs. Probability Error
+
+![Statistical error versus shot count](results/figures/statistical_error_vs_shots.png)
+
+The statistical evaluation examines five pulse durations using three fixed simulator seeds (42, 123, and 2026) at five shot counts. This produces 75 simulation configurations.
+
+| Shots per simulation | Mean absolute probability error |
+|---:|---:|
+| 500 | 0.010930 |
+| 1,000 | 0.009397 |
+| 2,000 | 0.006498 |
+| 4,000 | 0.003415 |
+| 8,000 | 0.002842 |
+
+Across the tested configurations, the aggregate mean absolute probability error decreased by approximately 74.0% when the shot count increased from 500 to 8,000. Individual pulse configurations do not necessarily show a monotonic reduction.
+
+These results characterize finite-shot sampling in an ideal simulated circuit. They do not establish physical quantum-control accuracy.
 
 ## Tested Environment
 
